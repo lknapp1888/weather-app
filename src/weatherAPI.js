@@ -51,7 +51,7 @@ export const weatherFunctions = {
             }
             weatherStorage.activeForecastArr.push(returnObj)
         }
-        uiFunctions.updateForecast(weatherStorage.activeForecastArr, 0, 4);
+        uiFunctions.updateForecast(weatherStorage.activeForecastArr);
     },
 }
 

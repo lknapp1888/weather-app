@@ -15,13 +15,19 @@
     height: 90vh;
 }
 
-.searchContainer, .currentWeatherContainer, .forecastContainer {
+.searchContainer, .currentWeatherContainer {
     border: black solid 1px;
     display: flex;
     justify-content: center;
     width: 60%;
     background-color: rgb(242, 245, 248);
     padding: 20px;
+}
+
+/* search container */
+
+.searchContainer {
+    gap: 10px;
 }
 
 /* current weather */
@@ -38,25 +44,33 @@
     justify-content: flex-end;
 }
 
-.iconContainer {
-    display: flex;
-    justify-content: space-between;
-}
-
-.weatherIcon {
-    width: 40px;
-    height: 40px;
+.currImg {
+    width: 80px;
+    height: 80px;
 }
 
 /* Forecast */
+@import "https://unpkg.com/open-props";
+@import "https://unpkg.com/open-props/normalize.min.css";
 
 .forecastContainer {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    width: 60%;
+    padding: 20px;
+    gap: var(--size-3);
+    grid-auto-flow: column;
+    grid-auto-columns: 21%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    background-color: rgb(242, 245, 248);
+    border: black solid 1px;
 }
 
 .forecastItem {
     border: black solid 1px;
+    padding: var(--size-3);
+    background: var(--surface-2);
+    border-radius: var(--radius-2);
 }
 
 .forecastBtnContainer {
@@ -67,20 +81,7 @@
     padding: 5px;
 }
 
-.forecastBtn {
-    width: 0;
-    height: 0;
+.weatherIcon {
+    width: 40px;
+    height: 40px;
 }
-
-.leftForecastBtn {
-    border-top: 18px solid transparent;
-    border-right: 28px solid red;
-    border-bottom: 18px solid transparent;
-}
-
-.rightForecastBtn {
-    border-top: 18px solid transparent;
-    border-left: 28px solid red;
-    border-bottom: 18px solid transparent;
-}
-

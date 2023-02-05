@@ -17,8 +17,9 @@ export const uiFunctions = {
         uiStorage.sunrise.innerText = `Sunrise: ${obj.sunrise}`
         // uiStorage.currImg = function to set currImg depending on desc
     },
-    updateForecast: function (obj, startInd, finInd) {
-        for (let i = startInd; i < finInd; i++) {
+    updateForecast: function (obj) {
+        for (let i = 0; i < obj.length; i++) {
+            this.apendForecastItem(i)
             const date = document.querySelector(`.forecastDate-${i}`);
             const desc = document.querySelector(`.forecastDesc-${i}`);
             const temp = document.querySelector(`.forecastTemp-${i}`);
@@ -29,6 +30,23 @@ export const uiFunctions = {
             temp.innerText = `${obj[i].temp}`;
         }
     },
+    apendForecastItem: function (ref) {
+        const forecastItem = document.createElement('div');
+        forecastItem.classList.add('forecastItem');
+        forecastItem.classList.add(`forecastItem-${ref}`)
+        forecastItem.innerHTML = `
+                <div class="forecastText forecastText-${ref}">
+                    <p class="forecastDate-${ref}"></p>
+                    <p class="forecastDesc-${ref}"></p>
+                    <p class="forecastTemp-${ref}"></p>
+                </div>
+                <div class="forecastImg">
+                    <img class="weatherIcon weatherIcon-${ref}" src="/src/icons/sunny.png" alt="weather">
+                </div>
+        `
+        uiStorage.forecastContainer.appendChild(forecastItem);
+    },
+
     initSearchListener: function () {
         uiStorage.searchBox.addEventListener('keydown', (e) => {
             if (!utilityFunctions.alphanumOnly(e.key)) {return};
@@ -40,7 +58,7 @@ export const uiFunctions = {
         uiStorage.searchBtn.addEventListener('click', () => {
             weatherFunctions.getWeather(weatherStorage.searchVal);
             weatherStorage.searchVal = '';
-            // weatherFunctions.getForecast(weatherStorage.activeWeatherObj.longitude, weatherStorage.activeWeatherObj.latitude)
+            uiStorage.searchBox.value = '';
         })
     },
     initTempToggle: function () {
@@ -67,8 +85,7 @@ const uiStorage = {
     currImg: document.querySelector('.currImg'),
     sunrise: document.querySelector('.sunrise'),
     sunset: document.querySelector('.sunset'),
-    //forecastObjs
-    //forecastBtns
+    forecastContainer: document.querySelector('.forecastContainer'),
     searchBox: document.getElementById('locSearchInput'),
     searchBtn: document.getElementById('locSearchBtn')
 }
