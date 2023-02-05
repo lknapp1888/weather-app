@@ -1,3 +1,85 @@
-.test {
-    background-color: aqua;
+.backgroundContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.mainContainer {
+    background-color: rgb(192, 192, 192);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+    width: 90vh;
+    height: 90vh;
+}
+
+.searchContainer, .currentWeatherContainer, .forecastContainer {
+    border: black solid 1px;
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    background-color: rgb(242, 245, 248);
+    padding: 20px;
+}
+
+/* current weather */
+
+.currentWeatherContainer {
+    display: flex;
+    gap: 10%;
+}
+
+
+.currRightSide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.iconContainer {
+    display: flex;
+    justify-content: space-between;
+}
+#weatherIcon {
+    width: 40px;
+    height: 40px;
+}
+
+/* Forecast */
+
+.forecastContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.forecastItem {
+    border: black solid 1px;
+}
+
+.forecastBtnContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(201, 201, 201);
+    padding: 5px;
+}
+
+.forecastBtn {
+    width: 0;
+    height: 0;
+}
+
+.leftForecastBtn {
+    border-top: 18px solid transparent;
+    border-right: 28px solid red;
+    border-bottom: 18px solid transparent;
+}
+
+.rightForecastBtn {
+    border-top: 18px solid transparent;
+    border-left: 28px solid red;
+    border-bottom: 18px solid transparent;
+}
+
