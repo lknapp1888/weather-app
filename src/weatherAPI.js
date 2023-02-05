@@ -24,8 +24,8 @@ export const weatherFunctions = {
             latitude: obj.coord.lat,
             longitude: obj.coord.lon,
         }
+        weatherStorage.activeLoc = obj.name;
         this.setWeatherObj(weatherObj)
-        console.log(weatherObj)
         uiFunctions.updateCurr(weatherObj)
         this.getForecast(weatherObj.longitude, weatherObj.latitude)
         return weatherObj;
@@ -40,14 +40,13 @@ export const weatherFunctions = {
           forecast.json().then((e) => this.getForecastObj(e))
     },
     getForecastObj: function (obj) {
-        let temp = '';
         weatherStorage.activeForecastArr = [];
         for (let i = 0; i < obj.list.length; i++ ) {
             const forecast = obj.list[i];
             const returnObj = {
                 time: utilityFunctions.unixConvert(forecast.dt),
                 weatherDesc: forecast.weather[0].description,
-                temp: utilityFunctions.kelvinToC(forecast.main.temp),
+                temp: utilityFunctions.kelvinToActiveTemp(forecast.main.temp),
                 loc: obj.city.name,
             }
             weatherStorage.activeForecastArr.push(returnObj)
@@ -58,6 +57,7 @@ export const weatherFunctions = {
 
 export const weatherStorage = {
     activeForecastArr: [],
+    activeLoc: '',
     searchVal: '',
     tempToggle: true,
 }

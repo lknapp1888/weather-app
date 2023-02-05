@@ -5,6 +5,7 @@ export const uiFunctions = {
     loadPage: function () {
         this.initSearchListener();
         this.initSubmitBtn();
+        this.initTempToggle();
     },
     updateCurr: function (obj) {
         uiStorage.location.innerText = `${obj.name}, ${obj.country}`;
@@ -25,7 +26,7 @@ export const uiFunctions = {
             console.log(obj[i].loc);
             date.innerText = obj[i].time;
             desc.innerText = obj[i].weatherDesc;
-            temp.innerText = `${obj[i].temp}C°`;
+            temp.innerText = `${obj[i].temp}`;
         }
     },
     initSearchListener: function () {
@@ -40,6 +41,18 @@ export const uiFunctions = {
             weatherFunctions.getWeather(weatherStorage.searchVal);
             weatherStorage.searchVal = '';
             // weatherFunctions.getForecast(weatherStorage.activeWeatherObj.longitude, weatherStorage.activeWeatherObj.latitude)
+        })
+    },
+    initTempToggle: function () {
+        uiStorage.tempToggle.addEventListener('click', () => {
+            if (weatherStorage.tempToggle) {
+                uiStorage.tempToggle.innerText = 'C°';
+            }
+            else {
+                uiStorage.tempToggle.innerText = 'F°';
+            }
+            weatherFunctions.getWeather(weatherStorage.activeLoc)
+            weatherStorage.tempToggle = !weatherStorage.tempToggle
         })
     },
 }
