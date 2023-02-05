@@ -1,9 +1,13 @@
 import './style.css';
-import {weatherFunctions, weatherStorage} from './weatherAPI'
+import {weatherFunctions, weatherStorage} from './weatherAPI';
+import { uiFunctions } from './UI';
+
+uiFunctions.loadPage()
+
+weatherFunctions.getWeather('sydney');
 
 
-weatherFunctions.getWeather('london');
-weatherFunctions.getForecast(-9.1333, 38.7167)
+
 
 
 
