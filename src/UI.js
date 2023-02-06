@@ -10,14 +10,17 @@ export const uiFunctions = {
     updateCurr: function (obj) {
         uiStorage.location.innerText = `${obj.name}, ${obj.country}`;
         uiStorage.temp.innerText = `Temp: ${obj.temp}`;
-        uiStorage.feelsLike.innerText = `feels like ${obj.feelsLike}`;
+        uiStorage.feelsLike.innerText = `feels like: ${obj.feelsLike}`;
         uiStorage.humidity.innerText = `Humidity: ${obj.humidity}%`;
         uiStorage.desc.innerText = obj.weatherDesc;
         uiStorage.sunset.innerText = `Sunset: ${obj.sunset}`;
         uiStorage.sunrise.innerText = `Sunrise: ${obj.sunrise}`
-        // uiStorage.currImg = function to set currImg depending on desc
+        uiStorage.currImg.src = `${this.getWeatherIconURL(obj.weatherMain, obj.weatherDesc)}`
     },
     updateForecast: function (obj) {
+        while (uiStorage.forecastContainer.lastChild) {
+            uiStorage.forecastContainer.removeChild(uiStorage.forecastContainer.lastChild);
+        };
         for (let i = 0; i < obj.length; i++) {
             this.apendForecastItem(i)
             const date = document.querySelector(`.forecastDate-${i}`);
@@ -41,12 +44,24 @@ export const uiFunctions = {
                     <p class="forecastTemp-${ref}"></p>
                 </div>
                 <div class="forecastImg">
-                    <img class="weatherIcon weatherIcon-${ref}" src="/src/icons/sunny.png" alt="weather">
+                    <img class="weatherIcon weatherIcon-${ref}" src="${
+                        this.getWeatherIconURL(weatherStorage.activeForecastArr[ref].main, weatherStorage.activeForecastArr[ref].weatherDesc)}" alt="weather">
                 </div>
         `
         uiStorage.forecastContainer.appendChild(forecastItem);
     },
-
+    getWeatherIconURL: function (main, desc) {
+        let id = '';
+        if (main === 'Thunderstorm') {id = '11d'};
+        if (main === 'Drizzle') {id = '09d'};
+        if (main === 'Rain') {id = '10d'};
+        if (main === 'Snow') {id = '13d'};
+        if (main === 'Clear') {id = '01d'};
+        if (desc === 'few clouds') {id = '02d'}
+        if (desc === 'scattered clouds') {id = '03d'}
+        if ((desc === 'broken clouds') || (desc === 'overcast clouds')) {id = '04d'}
+        return `/src/icons/${id}@2x.png`;
+    },
     initSearchListener: function () {
         uiStorage.searchBox.addEventListener('keydown', (e) => {
             if (!utilityFunctions.alphanumOnly(e.key)) {return};
@@ -85,6 +100,7 @@ const uiStorage = {
     currImg: document.querySelector('.currImg'),
     sunrise: document.querySelector('.sunrise'),
     sunset: document.querySelector('.sunset'),
+    currentWeatherContainer: document.querySelector('.currentWeatherContainer'),
     forecastContainer: document.querySelector('.forecastContainer'),
     searchBox: document.getElementById('locSearchInput'),
     searchBtn: document.getElementById('locSearchBtn')

@@ -41,11 +41,13 @@ export const weatherFunctions = {
     },
     getForecastObj: function (obj) {
         weatherStorage.activeForecastArr = [];
+        console.log(obj.list[0])
         for (let i = 0; i < obj.list.length; i++ ) {
             const forecast = obj.list[i];
             const returnObj = {
                 time: utilityFunctions.unixConvert(forecast.dt),
                 weatherDesc: forecast.weather[0].description,
+                main: forecast.weather[0].main,
                 temp: utilityFunctions.kelvinToActiveTemp(forecast.main.temp),
                 loc: obj.city.name,
             }
