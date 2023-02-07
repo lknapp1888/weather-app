@@ -15,7 +15,8 @@ export const uiFunctions = {
         uiStorage.desc.innerText = obj.weatherDesc;
         uiStorage.sunset.innerText = `Sunset: ${obj.sunset}`;
         uiStorage.sunrise.innerText = `Sunrise: ${obj.sunrise}`
-        uiStorage.currImg.src = `${this.getWeatherIconURL(obj.weatherMain, obj.weatherDesc)}`
+        uiStorage.currImg.src = `${this.getWeatherIconURL(obj.weatherMain, obj.weatherDesc, 'icon')}`
+        this.updateBackgroundImg(obj.weatherMain, obj.weatherDesc)
     },
     updateForecast: function (obj) {
         while (uiStorage.forecastContainer.lastChild) {
@@ -33,6 +34,11 @@ export const uiFunctions = {
             temp.innerText = `${obj[i].temp}`;
         }
     },
+    updateBackgroundImg: function (main, desc) {
+        const body = document.querySelector('.body');
+        body.style.backgroundImage = this.getWeatherIconURL(main, desc, 'current')
+        console.log(body.style.backgroundImage)
+    },
     apendForecastItem: function (ref) {
         const forecastItem = document.createElement('div');
         forecastItem.classList.add('forecastItem');
@@ -45,12 +51,12 @@ export const uiFunctions = {
                 </div>
                 <div class="forecastImg">
                     <img class="weatherIcon weatherIcon-${ref}" src="${
-                        this.getWeatherIconURL(weatherStorage.activeForecastArr[ref].main, weatherStorage.activeForecastArr[ref].weatherDesc)}" alt="weather">
+                        this.getWeatherIconURL(weatherStorage.activeForecastArr[ref].main, weatherStorage.activeForecastArr[ref].weatherDesc, 'icon')}" alt="weather">
                 </div>
         `
         uiStorage.forecastContainer.appendChild(forecastItem);
     },
-    getWeatherIconURL: function (main, desc) {
+    getWeatherIconURL: function (main, desc, type) {
         let id = '';
         if (main === 'Thunderstorm') {id = '11d'};
         if (main === 'Drizzle') {id = '09d'};
@@ -60,7 +66,8 @@ export const uiFunctions = {
         if (desc === 'few clouds') {id = '02d'}
         if (desc === 'scattered clouds') {id = '03d'}
         if ((desc === 'broken clouds') || (desc === 'overcast clouds')) {id = '04d'}
-        return `/src/icons/${id}@2x.png`;
+        if (type === 'icon') {return `/src/icons/${id}@2x.png`}
+        if (type === 'current') {return `url("/src/backgroundImg/${id}.jpg")`}
     },
     initSearchListener: function () {
         uiStorage.searchBox.addEventListener('keydown', (e) => {
