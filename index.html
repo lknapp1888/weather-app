@@ -11,9 +11,12 @@
         <div class="mainContainer">
             <div class="searchContainer">
                 <button id="toggleTempMetric">F°</button>
-                <input id="locSearchInput" type="text">
-                <button id="locSearchBtn">Search!</button>
+                <form id="searchForm" action="#">
+                    <input id="locSearchInput" type="text" minlength="1" maxlength="30" placeholder="Enter a location">
+                    <button id="locSearchBtn">Search!</button>
+                </form>
             </div>
+            <p class="errorMsg"></p>
             <div class="currentWeatherContainer">
                 <div class="currLeftSide">
                     <div class="locContainer">
