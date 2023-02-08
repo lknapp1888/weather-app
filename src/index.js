@@ -4,9 +4,7 @@ import { uiFunctions } from './UI';
 
 uiFunctions.loadPage()
 
-weatherFunctions.getWeather('sydney');
-
-
+weatherFunctions.getWeather('London');
 
 
 

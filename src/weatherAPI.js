@@ -4,10 +4,18 @@ import { uiFunctions } from './UI';
 
 export const weatherFunctions = {
     getWeather: async function (location) {
+        try {
         const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=5df130c0b99802bf272a5d9caf76a151`, {
             mode: 'cors'
           })
+          if (weather.ok) {
             weather.json().then((e) => this.getWeatherObj(e))
+          }
+          else {uiFunctions.displayErrorMsg(location)}
+        }
+        catch {
+            console.log('fetch function not working')
+        }
     },
     getWeatherObj: function (obj) {  
         const weatherObj = {
@@ -41,7 +49,6 @@ export const weatherFunctions = {
     },
     getForecastObj: function (obj) {
         weatherStorage.activeForecastArr = [];
-        console.log(obj.list[0])
         for (let i = 0; i < obj.list.length; i++ ) {
             const forecast = obj.list[i];
             const returnObj = {

@@ -51,8 +51,15 @@ body {
     gap: 10px;
 }
 
-.searchContainer > input, .searchContainer > button{
+#searchForm {
+    display: flex;
+    gap: 10px;
+}
+
+#toggleTempMetric, #locSearchInput, #locSearchBtn {
     color: black;
+    font-size: 1.1rem;
+    padding: 5px;
 }
 
 /* current weather */
@@ -82,7 +89,7 @@ body {
 
 .forecastContainer {
     display: grid;
-    width: 60%;
+    width: clamp(300px, 100%, 800px);
     padding: 20px;
     gap: 10px;
     grid-auto-flow: column;

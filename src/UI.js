@@ -27,8 +27,6 @@ export const uiFunctions = {
             const date = document.querySelector(`.forecastDate-${i}`);
             const desc = document.querySelector(`.forecastDesc-${i}`);
             const temp = document.querySelector(`.forecastTemp-${i}`);
-            // weather img function
-            console.log(obj[i].loc);
             date.innerText = obj[i].time;
             desc.innerText = obj[i].weatherDesc;
             temp.innerText = `${obj[i].temp}`;
@@ -37,7 +35,6 @@ export const uiFunctions = {
     updateBackgroundImg: function (main, desc) {
         const body = document.querySelector('.body');
         body.style.backgroundImage = this.getWeatherIconURL(main, desc, 'current')
-        console.log(body.style.backgroundImage)
     },
     apendForecastItem: function (ref) {
         const forecastItem = document.createElement('div');
@@ -66,14 +63,19 @@ export const uiFunctions = {
         if (desc === 'few clouds') {id = '02d'}
         if (desc === 'scattered clouds') {id = '03d'}
         if ((desc === 'broken clouds') || (desc === 'overcast clouds')) {id = '04d'}
+        if (main === 'Mist') {id = '50d'}
         if (type === 'icon') {return `/src/icons/${id}@2x.png`}
         if (type === 'current') {return `url("/src/backgroundImg/${id}.jpg")`}
     },
+    displayErrorMsg: function (entry) {
+        uiStorage.errorMsg.innerText = `We could not find any results for "${entry}"`;
+    },
     initSearchListener: function () {
         uiStorage.searchBox.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {weatherStorage.searchVal = weatherStorage.searchVal.slice(0, -1)}
+            if (e.code === 'Space') {weatherStorage.searchVal+= e.key}
             if (!utilityFunctions.alphanumOnly(e.key)) {return};
             weatherStorage.searchVal+= e.key
-            console.log(weatherStorage.searchVal)
         })
     },
     initSubmitBtn: function () {
@@ -110,5 +112,6 @@ const uiStorage = {
     currentWeatherContainer: document.querySelector('.currentWeatherContainer'),
     forecastContainer: document.querySelector('.forecastContainer'),
     searchBox: document.getElementById('locSearchInput'),
-    searchBtn: document.getElementById('locSearchBtn')
+    searchBtn: document.getElementById('locSearchBtn'),
+    errorMsg: document.querySelector('.errorMsg')
 }
