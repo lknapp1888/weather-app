@@ -21,7 +21,6 @@ import imgFifty from "./backgroundImg/50d.jpg";
 
 export const uiFunctions = {
   loadPage: function () {
-    this.initSearchListener();
     this.initSubmitBtn();
     this.initTempToggle();
   },
@@ -38,6 +37,7 @@ export const uiFunctions = {
       obj.weatherDesc,
       "icon"
     )}`;
+    uiStorage.errorMsg.innerText = '';
     this.updateBackgroundImg(obj.weatherMain, obj.weatherDesc);
   },
   updateForecast: function (obj) {
@@ -130,23 +130,9 @@ export const uiFunctions = {
   displayErrorMsg: function (entry) {
     uiStorage.errorMsg.innerText = `We could not find any results for "${entry}"`;
   },
-  initSearchListener: function () {
-    uiStorage.searchBox.addEventListener("keydown", (e) => {
-      if (e.key === "Backspace") {
-        weatherStorage.searchVal = weatherStorage.searchVal.slice(0, -1);
-      }
-      if (e.code === "Space") {
-        weatherStorage.searchVal += e.key;
-      }
-      if (!utilityFunctions.alphanumOnly(e.key)) {
-        return;
-      }
-      weatherStorage.searchVal += e.key;
-    });
-  },
   initSubmitBtn: function () {
     uiStorage.searchBtn.addEventListener("click", () => {
-      weatherFunctions.getWeather(weatherStorage.searchVal);
+      weatherFunctions.getWeather(uiStorage.searchBox.value);
       weatherStorage.searchVal = "";
       uiStorage.searchBox.value = "";
     });

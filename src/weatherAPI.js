@@ -68,6 +68,5 @@ export const weatherFunctions = {
 export const weatherStorage = {
     activeForecastArr: [],
     activeLoc: '',
-    searchVal: '',
     tempToggle: true,
 }
