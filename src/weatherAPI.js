@@ -5,7 +5,7 @@ import { uiFunctions } from './UI';
 export const weatherFunctions = {
     getWeather: async function (location) {
         try {
-        const weather = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=5df130c0b99802bf272a5d9caf76a151`, {
+        const weather = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=5df130c0b99802bf272a5d9caf76a151`, {
             mode: 'cors'
           })
           if (weather.ok) {
@@ -42,7 +42,7 @@ export const weatherFunctions = {
         weatherStorage.activeWeatherObj = obj;
     },
     getForecast: async function (lon, lat) {
-        const forecast = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5df130c0b99802bf272a5d9caf76a151`, {
+        const forecast = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=5df130c0b99802bf272a5d9caf76a151`, {
             mode: 'cors'
           })
           forecast.json().then((e) => this.getForecastObj(e))
