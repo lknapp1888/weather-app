@@ -2,6 +2,7 @@
 import {utilityFunctions} from './utility';
 import { uiFunctions } from './UI';
 
+
 export const weatherFunctions = {
     getWeather: async function (location) {
         try {
